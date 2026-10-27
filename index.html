@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loners App - Genuine Dating, Connections & Business Network</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              purple: '#6D28D9',
+              deepPurple: '#4C1D95',
+              pink: '#EC4899',
+              hotPink: '#DB2777',
+              orange: '#F97316',
+              brightOrange: '#EA580C',
+              amber: '#F59E0B'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Warm Vibrant Gradient Theme Styling */
+    .bg-warm-gradient {
+      background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 30%, #ec4899 65%, #f97316 100%);
+    }
+    .bg-warm-gradient-subtle {
+      background: linear-gradient(135deg, rgba(76, 29, 149, 0.05) 0%, rgba(236, 72, 153, 0.05) 50%, rgba(249, 115, 22, 0.05) 100%);
+    }
+    .text-warm-gradient {
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f97316 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-warm-gradient {
+      background: linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #f97316 100%);
+      transition: all 0.3s ease;
+    }
+    .btn-warm-gradient:hover {
+      background: linear-gradient(135deg, #6d28d9 0%, #db2777 50%, #ea580c 100%);
+      box-shadow: 0 10px 20px -5px rgba(236, 72, 153, 0.4);
+    }
+    
+    /* Smooth Scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+    
+    /* Glassmorphism elements */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(244, 114, 182, 0.2);
+    }
+    .glass-dark {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Pulse Glow effect */
+    .pulse-glow {
+      animation: pulseGlow 2.5s infinite;
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.5); }
+      70% { box-shadow: 0 0 0 14px rgba(249, 115, 22, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+    }
+
+    /* Card Swipe Animations */
+    .swipe-card-enter {
+      animation: cardIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-brand-pink selection:text-white">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-pink-500/20 px-4 py-3">
+    <div class="max-w-md mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-2xl bg-warm-gradient flex items-center justify-center text-white font-display font-extrabold text-xl shadow-lg shadow-pink-500/30">
+          L
+        </div>
+        <div>
+          <h1 class="font-display font-bold text-lg leading-tight text-white flex items-center gap-1.5">
+            Loners App
+            <span class="text-[10px] bg-pink-500/20 text-pink-300 border border-pink-500/40 px-2 py-0.5 rounded-full font-semibold">100% Free</span>
+          </h1>
+          <p class="text-[11px] text-orange-400 font-medium flex items-center gap-1">
+            <span class="material-symbols-outlined text-[13px]">verified_user</span> Genuine Local & Business Network
+          </p>
+        </div>
+      </div>
+
+      <!-- Location Badge Button -->
+      <button onclick="openLocationModal()" class="flex items-center gap-1.5 bg-slate-800/90 hover:bg-slate-800 border border-pink-500/30 px-3 py-1.5 rounded-full text-xs font-medium text-slate-200 transition">
+        <span class="material-symbols-outlined text-orange-400 text-sm">location_on</span>
+        <span id="headerLocDisplay">Westlands (5km)</span>
+        <span class="material-symbols-outlined text-slate-400 text-sm">expand_more</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="max-w-md mx-auto w-full flex-1 pb-24 px-4 pt-4">
+
+    <!-- GUARANTEE BANNER -->
+    <div class="mb-4 p-3 bg-gradient-to-r from-purple-900/80 via-pink-900/80 to-orange-900/80 border border-pink-500/40 rounded-2xl flex items-center justify-between text-xs text-slate-200 shadow-lg">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-orange-500/20 text-orange-400 border border-orange-500/40 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-base">lock_open</span>
+        </div>
+        <div>
+          <span class="font-bold text-white block">Zero Paywall & Anti-Scam Policy</span>
+          <span class="text-[11px] text-slate-300">Free chat like WhatsApp • Verified real locals only</span>
+        </div>
+      </div>
+      <button onclick="openScamOathModal()" class="bg-pink-600/30 hover:bg-pink-600/50 text-pink-200 border border-pink-400/40 text-[11px] px-2.5 py-1 rounded-xl font-semibold transition shrink-0">
+        Safety Oath
+      </button>
+    </div>
+
+    <!-- INTENT FILTER PILLS -->
+    <div class="flex items-center gap-2 mb-4 overflow-x-auto pb-1 no-scrollbar">
+      <span class="text-xs font-semibold text-slate-400 shrink-0">Intent:</span>
+      <button onclick="setIntentFilter('all')" id="filter-all" class="filter-pill active bg-warm-gradient text-white text-xs px-3 py-1 rounded-full font-semibold shadow-sm transition shrink-0">
+        ✨ All Vibes
+      </button>
+      <button onclick="setIntentFilter('dating')" id="filter-dating" class="filter-pill bg-slate-800 text-slate-300 border border-slate-700 hover:border-pink-500/40 text-xs px-3 py-1 rounded-full font-medium transition shrink-0 flex items-center gap-1">
+        <span class="material-symbols-outlined text-sm text-pink-400">favorite</span> Dating
+      </button>
+      <button onclick="setIntentFilter('friendship')" id="filter-friendship" class="filter-pill bg-slate-800 text-slate-300 border border-slate-700 hover:border-purple-500/40 text-xs px-3 py-1 rounded-full font-medium transition shrink-0 flex items-center gap-1">
+        <span class="material-symbols-outlined text-sm text-purple-400">groups</span> Friends
+      </button>
+      <button onclick="setIntentFilter('business')" id="filter-business" class="filter-pill bg-slate-800 text-slate-300 border border-slate-700 hover:border-orange-500/40 text-xs px-3 py-1 rounded-full font-medium transition shrink-0 flex items-center gap-1">
+        <span class="material-symbols-outlined text-sm text-orange-400">storefront</span> Work & Hustle
+      </button>
+    </div>
+
+    <!-- TAB 1: EXPLORE & ICEBREAKERS -->
+    <section id="tab-explore" class="space-y-4">
+
+      <!-- Interactive Icebreaker & Business Prompt -->
+      <div class="bg-gradient-to-br from-purple-950 via-slate-900 to-orange-950 p-4 rounded-3xl border border-pink-500/30 shadow-xl relative overflow-hidden">
+        <div class="flex justify-between items-start mb-2">
+          <span class="bg-gradient-to-r from-pink-500/20 to-orange-500/20 text-orange-300 border border-orange-500/30 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+            <span class="material-symbols-outlined text-xs">casino</span> Daily Loner Quiz & Hustle Prompt
+          </span>
+          <button onclick="spinIcebreaker()" class="text-xs text-slate-300 hover:text-white flex items-center gap-1 bg-white/10 px-2.5 py-1 rounded-lg backdrop-blur border border-white/10">
+            <span class="material-symbols-outlined text-xs">refresh</span> Spin Prompt
+          </button>
+        </div>
+        <p id="icebreakerText" class="text-sm font-medium my-3 text-pink-100 italic">
+          "What side-hustle or passion project are you secretly working on in your spare time?"
+        </p>
+        <button onclick="answerPromptInLounge()" class="w-full py-2.5 btn-warm-gradient text-white font-bold rounded-2xl text-xs shadow-lg flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-sm">edit_note</span> Share Your Answer in Lounge Feed
+        </button>
+      </div>
+
+      <!-- Nearby Profiles Header -->
+      <div class="flex justify-between items-center pt-2">
+        <div>
+          <h2 class="font-display font-bold text-slate-100 text-base">Verified Local Members</h2>
+          <p class="text-xs text-slate-400">Matched by village/county & genuine score</p>
+        </div>
+        <span class="text-xs text-slate-300 bg-slate-800 px-3 py-1 rounded-full border border-slate-700 flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <strong class="text-emerald-400" id="onlineCount">8</strong> Active Nearby
+        </span>
+      </div>
+
+      <!-- Dynamic Grid of Profiles -->
+      <div id="nearbyGrid" class="grid grid-cols-1 gap-3">
+        <!-- Dynamic content via JS -->
+      </div>
+    </section>
+
+    <!-- TAB 2: SPEED MATCH STACK -->
+    <section id="tab-swipe" class="hidden space-y-4">
+      <div class="text-center mb-1">
+        <h2 class="font-display font-bold text-slate-100 text-lg">Speed Match Stack</h2>
+        <p class="text-xs text-slate-400">Discover local introverts & side-hustlers. 100% Free!</p>
+      </div>
+
+      <!-- Card container -->
+      <div id="swipeContainer" class="relative w-full h-[440px] flex items-center justify-center">
+        <!-- Dynamic card inserted here -->
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-center items-center gap-6 pt-1">
+        <button onclick="handleSwipe('left')" class="w-14 h-14 bg-slate-800 text-rose-400 shadow-xl hover:bg-slate-700 rounded-full flex items-center justify-center border border-rose-500/30 text-xl transition active:scale-95">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <button onclick="vouchCurrentProfile()" class="w-11 h-11 bg-slate-800 text-amber-400 shadow-md hover:bg-slate-700 rounded-full flex items-center justify-center border border-amber-500/30 transition" title="Vouch for profile genuineness">
+          <span class="material-symbols-outlined text-lg">verified</span>
+        </button>
+        <button onclick="handleSwipe('right')" class="w-14 h-14 btn-warm-gradient text-white shadow-xl rounded-full flex items-center justify-center text-xl transition active:scale-95 pulse-glow">
+          <span class="material-symbols-outlined text-2xl">favorite</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- TAB 3: LONERS IN BUSINESS & WORK HUB -->
+    <section id="tab-business" class="hidden space-y-4">
+      <div class="bg-gradient-to-r from-orange-950 via-slate-900 to-purple-950 p-4 rounded-3xl border border-orange-500/40 shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="font-display font-bold text-white text-base flex items-center gap-2">
+            <span class="material-symbols-outlined text-orange-400">storefront</span> Loners in Business & Hustles
+          </h2>
+          <span class="text-[10px] bg-orange-500/20 text-orange-300 px-2 py-0.5 rounded-full font-bold border border-orange-500/30">Local Marketplace</span>
+        </div>
+        <p class="text-xs text-slate-300 mb-3">
+          Being introverted doesn't mean building alone! Promote your business, freelance skill, or find a trusted business partner in your village or estate.
+        </p>
+        <button onclick="openAddBusinessModal()" class="w-full py-2.5 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-bold rounded-2xl text-xs shadow-md flex items-center justify-center gap-2 hover:opacity-95 transition">
+          <span class="material-symbols-outlined text-base">add_circle</span> Showcase What You Do / Your Hustle
+        </button>
+      </div>
+
+      <!-- Business Categories -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-xs">
+        <button onclick="filterBusinessCategory('all')" class="bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1 rounded-full font-medium shrink-0">All Hustles</button>
+        <button onclick="filterBusinessCategory('tech')" class="bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1 rounded-full font-medium shrink-0">💻 Tech & Freelance</button>
+        <button onclick="filterBusinessCategory('food')" class="bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1 rounded-full font-medium shrink-0">🍲 Food & Catering</button>
+        <button onclick="filterBusinessCategory('crafts')" class="bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1 rounded-full font-medium shrink-0">🎨 Art & Crafts</button>
+        <button onclick="filterBusinessCategory('services')" class="bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1 rounded-full font-medium shrink-0">🔧 Local Services</button>
+      </div>
+
+      <!-- Business Cards Container -->
+      <div id="businessList" class="space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- TAB 4: VILLAGE LOUNGE & COMMUNITY FEED -->
+    <section id="tab-lounge" class="hidden space-y-4">
+      <!-- Create Lounge Post Box with Image Attachment -->
+      <div class="bg-slate-800/90 p-4 rounded-3xl border border-pink-500/20 shadow-lg space-y-3">
+        <div class="flex items-start gap-3">
+          <div id="loungeUserAvatar" class="w-10 h-10 rounded-2xl bg-warm-gradient text-white font-bold flex items-center justify-center text-xs shrink-0 shadow-md">
+            YOU
+          </div>
+          <div class="flex-1 space-y-2">
+            <textarea id="loungeInput" rows="2" placeholder="Share a thought, intro, or late-night coffee mood with local neighbors..." class="w-full bg-slate-900/90 text-xs text-slate-100 p-3 rounded-2xl border border-slate-700 outline-none focus:border-pink-500/50 transition"></textarea>
+            
+            <!-- Image Attachment Preview -->
+            <div id="loungeImagePreviewContainer" class="hidden relative rounded-2xl overflow-hidden border border-slate-700 max-h-48">
+              <img id="loungeImagePreview" src="" class="w-full object-cover max-h-48">
+              <button onclick="removeLoungeImage()" class="absolute top-2 right-2 bg-slate-900/80 text-white p-1 rounded-full hover:bg-slate-900">
+                <span class="material-symbols-outlined text-sm">close</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center pt-2 border-t border-slate-700/60 text-xs">
+          <div class="flex items-center gap-2">
+            <!-- Image Upload Button -->
+            <label class="cursor-pointer bg-slate-700/60 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded-xl flex items-center gap-1.5 border border-slate-600 transition">
+              <span class="material-symbols-outlined text-base text-pink-400">add_photo_alternate</span>
+              <span class="text-[11px] font-medium">Add Photo</span>
+              <input type="file" id="loungeFileInput" accept="image/*" class="hidden" onchange="handleLoungeImageSelect(event)">
+            </label>
+            <span class="text-[11px] text-slate-400 hidden sm:inline">Visible to your village area</span>
+          </div>
+
+          <button onclick="postToLoungeFeed()" class="btn-warm-gradient text-white font-bold px-4 py-1.5 rounded-xl shadow-md flex items-center gap-1.5 text-xs">
+            <span class="material-symbols-outlined text-sm">send</span> Post Vibe
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <h3 class="font-display font-bold text-slate-200 text-sm">Village Lounge Feed</h3>
+        <span class="text-[11px] text-slate-400">Authentic posts, zero clickbait</span>
+      </div>
+
+      <div id="loungeFeed" class="space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- TAB 5: DIRECT MESSAGES & CHATS -->
+    <section id="tab-messages" class="hidden space-y-3">
+      <div class="flex justify-between items-center mb-1">
+        <h2 class="font-display font-bold text-slate-100 text-lg">Direct Messages</h2>
+        <span class="text-xs bg-pink-500/20 text-pink-300 px-3 py-0.5 rounded-full font-semibold border border-pink-500/30">Free Unlimited Chat</span>
+      </div>
+
+      <!-- Anti-Conman Alert Banner -->
+      <div class="p-3 bg-amber-950/40 border border-amber-500/30 rounded-2xl text-xs text-amber-200 flex items-start gap-2.5">
+        <span class="material-symbols-outlined text-amber-400 text-lg shrink-0">shield</span>
+        <div>
+          <span class="font-bold text-amber-300">Safe Local Messaging:</span> Never send cash, mobile money transfers, or airtime to strangers. Authentic connections on Loners App never require payments.
+        </div>
+      </div>
+
+      <div id="chatsList" class="space-y-2">
+        <!-- Dynamic chat list -->
+      </div>
+    </section>
+
+    <!-- TAB 6: PROFILE & VERIFICATION SHIELD -->
+    <section id="tab-profile" class="hidden space-y-4">
+      <div class="bg-slate-800/90 p-5 rounded-3xl border border-pink-500/20 shadow-xl text-center relative overflow-hidden">
+        <div class="w-24 h-24 rounded-full mx-auto bg-warm-gradient text-white font-display font-bold text-3xl flex items-center justify-center shadow-lg mb-3 relative">
+          <span id="userAvatarText">ME</span>
+          <span class="absolute bottom-0 right-0 bg-emerald-500 text-white rounded-full p-1 border-2 border-slate-900 shadow-md" title="Photo & Location Verified">
+            <span class="material-symbols-outlined text-sm block">verified</span>
+          </span>
+        </div>
+        <h2 id="profileNameDisplay" class="font-display font-bold text-slate-100 text-xl">Guest Loner</h2>
+        <p id="profileLocDisplay" class="text-xs text-orange-400 flex items-center justify-center gap-1 mt-0.5 font-medium">
+          <span class="material-symbols-outlined text-sm">location_on</span> Westlands, Nairobi (5km)
+        </p>
+
+        <!-- Trust Score & Badges -->
+        <div class="mt-4 p-3 bg-slate-900/80 border border-emerald-500/40 rounded-2xl flex items-center justify-between text-left">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+              <span class="material-symbols-outlined text-xl">verified_user</span>
+            </div>
+            <div>
+              <div class="font-bold text-xs text-white">Genuine Trust Score: <span class="text-emerald-400">96% Verified</span></div>
+              <p class="text-[11px] text-slate-400">Vouched by 14 local community members</p>
+            </div>
+          </div>
+          <span class="text-[10px] bg-emerald-500 text-white px-2.5 py-1 rounded-lg font-bold uppercase tracking-wide shadow-sm">Genuine</span>
+        </div>
+
+        <div class="mt-4 space-y-3 text-left">
+          <div>
+            <label class="text-xs font-semibold text-slate-300 block mb-1">Your Introvert / Life Bio</label>
+            <textarea id="userBioInput" class="w-full text-xs p-3 rounded-2xl bg-slate-900 border border-slate-700 text-slate-200 outline-none focus:border-pink-500/50" rows="2" placeholder="Tell local members about your hobbies (e.g., tech, reading, late night music, coffee, anime)..."></textarea>
+          </div>
+
+          <div>
+            <label class="text-xs font-semibold text-slate-300 block mb-1">Your Business / What You Do For a Living</label>
+            <input type="text" id="userWorkInput" placeholder="e.g. Freelance Graphic Designer, Bakery Owner, Software Developer..." class="w-full text-xs p-3 rounded-2xl bg-slate-900 border border-slate-700 text-slate-200 outline-none focus:border-pink-500/50">
+          </div>
+
+          <button onclick="saveUserProfile()" class="w-full py-2.5 btn-warm-gradient text-white font-bold text-xs rounded-2xl shadow-md transition">
+            Save Profile Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- Safety & Anti-Conman Settings -->
+      <div class="bg-slate-800/90 p-4 rounded-3xl border border-pink-500/20 shadow-xl space-y-3">
+        <h3 class="font-display font-bold text-slate-200 text-xs uppercase tracking-wider text-pink-400">Safety & Anti-Conman Shield</h3>
+        
+        <div class="flex items-center justify-between py-2 border-b border-slate-700/60">
+          <div>
+            <div class="font-semibold text-xs text-slate-200">Auto-Filter Payment Scams</div>
+            <div class="text-[11px] text-slate-400">Blocks chats requesting money transfer or airtime</div>
+          </div>
+          <input type="checkbox" checked class="accent-pink-500 w-4 h-4 cursor-pointer">
+        </div>
+
+        <div class="flex items-center justify-between py-2 border-b border-slate-700/60">
+          <div>
+            <div class="font-semibold text-xs text-slate-200">Verified Local Only Mode</div>
+            <div class="text-[11px] text-slate-400">Only receive matches within selected kilometer radius</div>
+          </div>
+          <input type="checkbox" checked class="accent-pink-500 w-4 h-4 cursor-pointer">
+        </div>
+
+        <button onclick="openScamReportModal()" class="w-full py-2.5 bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 border border-rose-500/40 text-xs font-bold rounded-2xl flex items-center justify-center gap-2 transition">
+          <span class="material-symbols-outlined text-base">flag</span> Report Fake Account / Conman
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- DIRECT CHAT MODAL WITH IMAGE SHARING -->
+  <div id="chatModal" class="fixed inset-0 bg-slate-950/80 z-50 hidden backdrop-blur-md flex justify-center items-end sm:items-center">
+    <div class="bg-slate-900 w-full max-w-md h-[92vh] sm:h-[620px] rounded-t-3xl sm:rounded-3xl flex flex-col shadow-2xl border border-pink-500/30 overflow-hidden">
+      
+      <!-- Chat Header -->
+      <div class="p-3.5 bg-gradient-to-r from-purple-950 via-slate-900 to-orange-950 border-b border-pink-500/20 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <button onclick="closeChatModal()" class="p-1 text-slate-300 hover:text-white rounded-full">
+            <span class="material-symbols-outlined text-xl">arrow_back</span>
+          </button>
+          <div id="chatHeaderAvatar" class="w-9 h-9 rounded-2xl bg-warm-gradient font-bold flex items-center justify-center text-xs shadow-sm">
+            <!-- Avatar -->
+          </div>
+          <div>
+            <div id="chatHeaderName" class="font-display font-bold text-sm leading-tight">User Name</div>
+            <div id="chatHeaderMeta" class="text-[10px] text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified Local • Genuine 98%
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openScamReportModal()" class="text-slate-400 hover:text-rose-400 p-1" title="Report Conman">
+          <span class="material-symbols-outlined text-lg">shield_alert</span>
+        </button>
+      </div>
+
+      <!-- Anti-Scam Banner in Chat -->
+      <div class="bg-purple-950/60 text-[11px] text-purple-200 px-3 py-1.5 border-b border-purple-800/40 flex justify-between items-center">
+        <span>🛡️ 100% Free Chat: Zero cost. Never send money to anyone.</span>
+      </div>
+
+      <!-- Chat Messages Body -->
+      <div id="chatMessagesBody" class="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-950/50">
+        <!-- Messages rendered dynamically -->
+      </div>
+
+      <!-- Chat Image Attachment Preview Bar -->
+      <div id="chatImageAttachmentPreview" class="hidden px-4 py-2 bg-slate-900 border-t border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <img id="chatAttachedImg" src="" class="w-10 h-10 object-cover rounded-xl border border-pink-500/40">
+          <span class="text-xs text-slate-300">Image attached</span>
+        </div>
+        <button onclick="removeChatImageAttachment()" class="text-slate-400 hover:text-white">
+          <span class="material-symbols-outlined text-sm">close</span>
+        </button>
+      </div>
+
+      <!-- Chat Input Toolbar -->
+      <div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2">
+        <!-- Image File Input -->
+        <label class="p-2 text-slate-400 hover:text-pink-400 rounded-xl hover:bg-slate-800 cursor-pointer transition">
+          <span class="material-symbols-outlined text-xl">image</span>
+          <input type="file" id="chatFileInput" accept="image/*" class="hidden" onchange="handleChatImageSelect(event)">
+        </label>
+
+        <input type="text" id="chatInputText" placeholder="Type a genuine message..." class="flex-1 bg-slate-800 text-xs text-slate-100 rounded-2xl px-3.5 py-2.5 outline-none border border-slate-700 focus:border-pink-500/50" onkeypress="handleChatKeyPress(event)">
+        
+        <button onclick="sendMessage()" class="p-2.5 btn-warm-gradient text-white rounded-2xl shadow-md transition flex items-center justify-center">
+          <span class="material-symbols-outlined text-base">send</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATION & DISTANCE SLIDER MODAL -->
+  <div id="locationModal" class="fixed inset-0 bg-slate-950/80 z-50 hidden backdrop-blur-md flex justify-center items-center p-4">
+    <div class="bg-slate-900 max-w-sm w-full rounded-3xl p-5 border border-pink-500/30 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="font-display font-bold text-white text-base flex items-center gap-2">
+          <span class="material-symbols-outlined text-orange-400">location_on</span> Set Village & Radius
+        </h3>
+        <button onclick="closeLocationModal()" class="text-slate-400 hover:text-slate-200">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        Connect with introverts, homebodies, and business hustlers in your exact neighborhood or village.
+      </p>
+
+      <!-- Distance Slider (1km to 25km) -->
+      <div class="space-y-1 bg-slate-800 p-3 rounded-2xl border border-slate-700">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-slate-300 font-medium">Distance Radius:</span>
+          <span id="radiusValDisplay" class="font-bold text-orange-400">5 km</span>
+        </div>
+        <input type="range" id="radiusSlider" min="1" max="25" value="5" class="w-full accent-orange-500 cursor-pointer" oninput="updateRadiusLabel(this.value)">
+        <div class="flex justify-between text-[10px] text-slate-500">
+          <span>1 km (Village/Estate)</span>
+          <span>25 km (County)</span>
+        </div>
+      </div>
+
+      <button onclick="autoDetectLocation()" class="w-full py-2.5 bg-purple-950/60 border border-purple-500/40 text-purple-200 font-semibold text-xs rounded-2xl flex items-center justify-center gap-2 hover:bg-purple-900/60 transition">
+        <span class="material-symbols-outlined text-sm text-pink-400">my_location</span> Auto-Detect GPS Neighborhood
+      </button>
+
+      <div class="relative flex py-1 items-center">
+        <div class="flex-grow border-t border-slate-800"></div>
+        <span class="flex-shrink mx-2 text-[10px] text-slate-500 uppercase font-bold">Or Enter Village / Estate</span>
+        <div class="flex-grow border-t border-slate-800"></div>
+      </div>
+
+      <div class="space-y-2">
+        <input type="text" id="manualLocationInput" placeholder="e.g. Westlands, Kilimani, Eldoret Town, Nakuru..." class="w-full text-xs p-3 rounded-2xl bg-slate-800 border border-slate-700 text-slate-100 outline-none focus:border-pink-500/50">
+        <button onclick="saveManualLocation()" class="w-full py-2.5 btn-warm-gradient text-white font-bold text-xs rounded-2xl shadow-md transition">
+          Apply Location Filter
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD BUSINESS PROMOTION MODAL -->
+  <div id="addBusinessModal" class="fixed inset-0 bg-slate-950/80 z-50 hidden backdrop-blur-md flex justify-center items-center p-4">
+    <div class="bg-slate-900 max-w-sm w-full rounded-3xl p-5 border border-orange-500/40 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="font-display font-bold text-white text-base flex items-center gap-2">
+          <span class="material-symbols-outlined text-orange-400">storefront</span> Showcase Your Business/Hustle
+        </h3>
+        <button onclick="closeAddBusinessModal()" class="text-slate-400 hover:text-slate-200">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Business / Freelance Name</label>
+          <input type="text" id="bizTitleInput" placeholder="e.g. Solo Craft Bakery & Coffee" class="w-full p-2.5 rounded-2xl bg-slate-800 border border-slate-700 text-slate-100 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Category</label>
+          <select id="bizCategoryInput" class="w-full p-2.5 rounded-2xl bg-slate-800 border border-slate-700 text-slate-100 outline-none">
+            <option value="tech">💻 Tech & Freelance</option>
+            <option value="food">🍲 Food & Catering</option>
+            <option value="crafts">🎨 Art & Crafts</option>
+            <option value="services">🔧 Local Services</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Description & What You Offer</label>
+          <textarea id="bizDescInput" rows="3" placeholder="Describe your product, service, or what partner you are searching for..." class="w-full p-2.5 rounded-2xl bg-slate-800 border border-slate-700 text-slate-100 outline-none"></textarea>
+        </div>
+      </div>
+
+      <button onclick="submitBusinessPost()" class="w-full py-2.5 btn-warm-gradient text-white font-bold text-xs rounded-2xl shadow-md transition">
+        Publish Business Listing
+      </button>
+    </div>
+  </div>
+
+  <!-- SCAM REPORT MODAL -->
+  <div id="scamReportModal" class="fixed inset-0 bg-slate-950/80 z-50 hidden backdrop-blur-md flex justify-center items-center p-4">
+    <div class="bg-slate-900 max-w-sm w-full rounded-3xl p-5 border border-rose-500/40 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="font-display font-bold text-rose-400 text-base flex items-center gap-2">
+          <span class="material-symbols-outlined text-rose-500">shield_alert</span> Report Fraudster or Conman
+        </h3>
+        <button onclick="closeScamReportModal()" class="text-slate-400 hover:text-slate-200">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        We keep Loners App 100% genuine and free. Help us instantly remove scam profiles asking for money!
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <label class="block font-semibold text-slate-300">Reason for Report</label>
+        <select id="scamReasonSelect" class="w-full p-2.5 rounded-2xl bg-slate-800 border border-slate-700 text-slate-100 outline-none">
+          <option>Asked for Cash, Airtime, or M-Pesa transfer</option>
+          <option>Fake photos / Impersonation</option>
+          <option>Commercial spam / Unsolicited links</option>
+          <option>Abusive or unsafe conduct</option>
+        </select>
+
+        <textarea id="scamDetailsText" rows="2" class="w-full p-2.5 rounded-2xl bg-slate-800 border border-slate-700 text-slate-100 outline-none" placeholder="Provide extra details..."></textarea>
+      </div>
+
+      <button onclick="submitScamReport()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-2xl shadow-md transition">
+        Submit Instant Report
+      </button>
+    </div>
+  </div>
+
+  <!-- AUTHENTICATION / LANDING MODAL -->
+  <div id="authModal" class="fixed inset-0 bg-slate-950/90 z-50 flex justify-center items-center p-4 backdrop-blur-md">
+    <div class="bg-slate-900 max-w-sm w-full rounded-3xl p-6 border border-pink-500/30 shadow-2xl text-center space-y-5">
+      <div class="w-16 h-16 rounded-3xl bg-warm-gradient mx-auto flex items-center justify-center text-white font-display font-extrabold text-3xl shadow-lg shadow-pink-500/40 pulse-glow">
+        L
+      </div>
+      <div>
+        <h2 class="font-display font-extrabold text-2xl text-white">Loners App</h2>
+        <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+          Genuine Local Dating, Introvert Friendships & Local Business Networking. 100% Free like WhatsApp.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-1">
+        <!-- Google Sign-In button -->
+        <button onclick="loginWithGoogle()" class="w-full py-3 bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs rounded-2xl flex items-center justify-center gap-3 shadow-lg transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          Quick Sign In with Google
+        </button>
+
+        <button onclick="loginAsGuest()" class="w-full py-3 btn-warm-gradient text-white font-bold text-xs rounded-2xl shadow-lg transition">
+          Explore as Local Member
+        </button>
+      </div>
+
+      <div class="text-[10px] text-slate-500 pt-2 border-t border-slate-800">
+        🔒 Anti-Conman Shield Enabled • No Coins or VIP Paywalls
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAVIGATION BAR -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-pink-500/20">
+    <div class="max-w-md mx-auto grid grid-cols-5 py-2 px-1 text-center">
+      
+      <button onclick="switchTab('explore')" id="nav-explore" class="tab-btn active text-pink-500 flex flex-col items-center gap-0.5">
+        <span class="material-symbols-outlined text-xl">explore</span>
+        <span class="text-[10px] font-medium">Explore</span>
+      </button>
+
+      <button onclick="switchTab('swipe')" id="nav-swipe" class="tab-btn text-slate-400 hover:text-slate-200 flex flex-col items-center gap-0.5">
+        <span class="material-symbols-outlined text-xl">style</span>
+        <span class="text-[10px] font-medium">Match</span>
+      </button>
+
+      <button onclick="switchTab('business')" id="nav-business" class="tab-btn text-slate-400 hover:text-slate-200 flex flex-col items-center gap-0.5">
+        <span class="material-symbols-outlined text-xl">storefront</span>
+        <span class="text-[10px] font-medium">Hustles</span>
+      </button>
+
+      <button onclick="switchTab('lounge')" id="nav-lounge" class="tab-btn text-slate-400 hover:text-slate-200 flex flex-col items-center gap-0.5">
+        <span class="material-symbols-outlined text-xl">forum</span>
+        <span class="text-[10px] font-medium">Lounge</span>
+      </button>
+
+      <button onclick="switchTab('messages')" id="nav-messages" class="tab-btn text-slate-400 hover:text-slate-200 flex flex-col items-center gap-0.5 relative">
+        <span class="material-symbols-outlined text-xl">chat</span>
+        <span class="text-[10px] font-medium">Chats</span>
+        <span class="absolute top-0 right-4 w-2 h-2 bg-pink-500 rounded-full"></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- JAVASCRIPT APP LOGIC -->
+  <script>
+    // --- STATE MANAGEMENT ---
+    let currentUser = null;
+    let currentLocation = "Westlands, Nairobi";
+    let currentRadius = 5;
+    let currentIntentFilter = "all";
+    let activeChatUser = null;
+    let currentLoungeImageData = null;
+    let currentChatImageData = null;
+
+    // Sample Local Users Database
+    const mockUsers = [
+      {
+        id: "u1",
+        name: "Amina K.",
+        age: 24,
+        location: "Westlands, Estate",
+        distance: "1.2 km",
+        intent: "dating",
+        bio: "Avid reader, anime enthusiast & cozy cafe explorer. Looking for quiet, deep conversations.",
+        hustle: "💻 Remote Graphic Designer",
+        hustleCategory: "tech",
+        trustScore: 98,
+        vouched: 14,
+        vibe: "📖 Bookworm",
+        avatarBg: "bg-purple-600",
+        photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        id: "u2",
+        name: "David M.",
+        age: 28,
+        location: "Parklands, Town",
+        distance: "2.4 km",
+        intent: "business",
+        bio: "Full-stack coder and late-night tea drinker. Building an eco-friendly tech start-up.",
+        hustle: "🚀 Web Developer & Tech Consultant",
+        hustleCategory: "tech",
+        trustScore: 95,
+        vouched: 11,
+        vibe: "💻 Tech Hustler",
+        avatarBg: "bg-indigo-600",
+        photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        id: "u3",
+        name: "Faith N.",
+        age: 23,
+        location: "Kilimani, Sub-County",
+        distance: "3.1 km",
+        intent: "dating",
+        bio: "Introverted home baker crafting organic sourdough pastry and herbal infusions.",
+        hustle: "🍲 Artisan Home Bakery Owner",
+        hustleCategory: "food",
+        trustScore: 99,
+        vouched: 22,
+        vibe: "🥐 Food Artisan",
+        avatarBg: "bg-pink-600",
+        photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        id: "u4",
+        name: "Brian O.",
+        age: 27,
+        location: "Lavington, Estate",
+        distance: "4.0 km",
+        intent: "friendship",
+        bio: "Quiet nature photographer and indoor plant collector. Looking for hiking buddies.",
+        hustle: "📷 Landscape Photographer",
+        hustleCategory: "crafts",
+        trustScore: 93,
+        vouched: 8,
+        vibe: "🌱 Nature & Photos",
+        avatarBg: "bg-orange-600",
+        photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80"
+      }
+    ];
+
+    // Icebreaker Prompts
+    const icebreakers = [
+      "What side-hustle or passion project are you secretly working on in your spare time?",
+      "If you could have a quiet coffee with any local entrepreneur, who would it be?",
+      "What is your ultimate guilty pleasure comfort food on a rainy Sunday?",
+      "Are you looking for genuine dating, quiet friendship, or a local business partner?",
+      "What is the most underrated local spot in our village/town?"
+    ];
+
+    // Lounge Posts Feed
+    let loungePosts = [
+      {
+        id: "p1",
+        author: "Amina K.",
+        location: "Westlands",
+        content: "Rainy evening mood: Quiet coding + hot ginger tea. Anyone else building projects at home tonight?",
+        image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=80",
+        time: "15 mins ago",
+        likes: 9
+      },
+      {
+        id: "p2",
+        author: "Faith N.",
+        location: "Kilimani",
+        content: "Just baked a fresh batch of cinnamon buns! Offering free samples to local introverts in Kilimani. DM me! 🥐",
+        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&auto=format&fit=crop&q=80",
+        time: "42 mins ago",
+        likes: 18
+      }
+    ];
+
+    // Business Hub Post Listings
+    let businessListings = [
+      {
+        id: "b1",
+        owner: "David M.",
+        title: "Full-Stack Web & Mobile App Development",
+        category: "tech",
+        location: "Parklands (2.4 km)",
+        desc: "Building clean websites and mobile apps for local startups. Special discounts for fellow Loners App members!",
+        contactUser: "u2"
+      },
+      {
+        id: "b2",
+        owner: "Faith N.",
+        title: "Artisan Sourdough Bakery & Healthy Treats",
+        category: "food",
+        location: "Kilimani (3.1 km)",
+        desc: "Custom homemade birthday cakes, sugar-free pastries, and daily fresh bread delivered right to your door.",
+        contactUser: "u3"
+      }
+    ];
+
+    // Chat Store
+    let chatsData = {
+      "u1": [
+        { sender: "them", text: "Hey! Saw you're also in Westlands. Welcome to Loners App! 😊" }
+      ]
+    };
+
+    let swipeIndex = 0;
+
+    // --- INITIALIZATION ---
+    window.onload = function() {
+      renderNearbyGrid();
+      renderSwipeCard();
+      renderBusinessListings();
+      renderLoungeFeed();
+      renderChatsList();
+    };
+
+    // --- TAB SWITCHING ---
+    function switchTab(tabName) {
+      const tabs = ['explore', 'swipe', 'business', 'lounge', 'messages', 'profile'];
+      tabs.forEach(t => {
+        const sec = document.getElementById(`tab-${t}`);
+        const btn = document.getElementById(`nav-${t}`);
+        if (t === tabName) {
+          sec.classList.remove('hidden');
+          btn.classList.add('text-pink-500');
+          btn.classList.remove('text-slate-400');
+        } else {
+          sec.classList.add('hidden');
+          btn.classList.remove('text-pink-500');
+          btn.classList.add('text-slate-400');
+        }
+      });
+    }
+
+    // --- AUTHENTICATION MOCKS ---
+    function loginWithGoogle() {
+      currentUser = {
+        name: "Google Member",
+        email: "user@gmail.com",
+        location: currentLocation
+      };
+      completeLogin();
+    }
+
+    function loginAsGuest() {
+      currentUser = {
+        name: "Local Loner",
+        email: "guest@loners.app",
+        location: currentLocation
+      };
+      completeLogin();
+    }
+
+    function completeLogin() {
+      document.getElementById('authModal').classList.add('hidden');
+      document.getElementById('profileNameDisplay').innerText = currentUser.name;
+      document.getElementById('userAvatarText').innerText = currentUser.name.substring(0,2).toUpperCase();
+      document.getElementById('loungeUserAvatar').innerText = currentUser.name.substring(0,2).toUpperCase();
+      showToast("Welcome to Loners App! 100% Free & Anti-Scam Protected.");
+    }
+
+    // --- FILTER BY INTENT ---
+    function setIntentFilter(intent) {
+      currentIntentFilter = intent;
+      document.querySelectorAll('.filter-pill').forEach(btn => {
+        btn.classList.remove('bg-warm-gradient', 'text-white');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      });
+      const activeBtn = document.getElementById(`filter-${intent}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+        activeBtn.classList.add('bg-warm-gradient', 'text-white');
+      }
+      renderNearbyGrid();
+    }
+
+    // --- RENDER NEARBY GRID ---
+    function renderNearbyGrid() {
+      const grid = document.getElementById('nearbyGrid');
+      let filtered = mockUsers;
+      if (currentIntentFilter !== 'all') {
+        filtered = mockUsers.filter(u => u.intent === currentIntentFilter);
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="text-center p-6 bg-slate-800/80 rounded-3xl border border-slate-700">
+            <span class="material-symbols-outlined text-3xl text-slate-500 mb-1">search_off</span>
+            <p class="text-xs text-slate-400">No members found with this vibe filter nearby.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(user => `
+        <div class="bg-slate-800/90 p-3.5 rounded-3xl border border-pink-500/20 shadow-md flex items-center justify-between hover:border-pink-500/40 transition">
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <img src="${user.photo}" class="w-14 h-14 rounded-2xl object-cover border-2 border-pink-500/30">
+              <span class="absolute -bottom-1 -right-1 bg-emerald-500 text-white rounded-full p-0.5" title="Genuine Score ${user.trustScore}%">
+                <span class="material-symbols-outlined text-[10px] block">check</span>
+              </span>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h3 class="font-display font-bold text-slate-100 text-sm">${user.name}, ${user.age}</h3>
+                <span class="text-[10px] bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 font-bold px-1.5 py-0.2 rounded-md">
+                  ${user.trustScore}% Verified
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
+                <span class="material-symbols-outlined text-xs text-orange-400">location_on</span> ${user.location} (${user.distance})
+              </p>
+              <div class="mt-1 text-[10px] text-orange-300 font-semibold flex items-center gap-1">
+                <span class="material-symbols-outlined text-xs">work</span> ${user.hustle}
+              </div>
+            </div>
+          </div>
+          <button onclick="openChatWith('${user.id}')" class="p-2.5 btn-warm-gradient text-white rounded-2xl shadow-md transition flex items-center justify-center">
+            <span class="material-symbols-outlined text-base">chat</span>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // --- RENDER SWIPE MATCH CARDS ---
+    function renderSwipeCard() {
+      const container = document.getElementById('swipeContainer');
+      if (swipeIndex >= mockUsers.length) {
+        container.innerHTML = `
+          <div class="text-center p-6 bg-slate-800/90 rounded-3xl border border-pink-500/30 shadow-xl max-w-xs">
+            <span class="material-symbols-outlined text-4xl text-orange-400 mb-2">auto_awesome</span>
+            <h3 class="font-display font-bold text-white text-base">You've seen all local profiles!</h3>
+            <p class="text-xs text-slate-400 mt-1">Check back soon or expand your distance slider.</p>
+            <button onclick="swipeIndex=0; renderSwipeCard();" class="mt-4 px-4 py-2 btn-warm-gradient text-white text-xs font-bold rounded-2xl">
+              Restart Stack
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const user = mockUsers[swipeIndex];
+      container.innerHTML = `
+        <div class="w-full h-full bg-slate-800 rounded-3xl border border-pink-500/30 shadow-2xl p-4 flex flex-col justify-between relative overflow-hidden swipe-card-enter">
+          
+          <!-- Background Image overlay -->
+          <div class="absolute inset-0 z-0">
+            <img src="${user.photo}" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
+          </div>
+
+          <!-- Card Top Badges -->
+          <div class="relative z-10 flex justify-between items-center">
+            <span class="bg-emerald-950/90 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+              <span class="material-symbols-outlined text-xs">verified_user</span> ${user.trustScore}% Verified Genuine
+            </span>
+            <span class="bg-purple-950/90 text-purple-200 border border-purple-500/40 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+              ${user.intent}
+            </span>
+          </div>
+
+          <!-- Card Main Details -->
+          <div class="relative z-10 mt-auto">
+            <h2 class="font-display font-extrabold text-white text-2xl flex items-center gap-2">
+              ${user.name}, ${user.age}
+            </h2>
+            <p class="text-xs text-orange-400 font-medium flex items-center gap-1 mt-0.5">
+              <span class="material-symbols-outlined text-sm">location_on</span> ${user.location} (${user.distance})
+            </p>
+
+            <div class="my-3 p-3 bg-slate-900/90 rounded-2xl border border-slate-700/80 text-xs text-slate-200 italic">
+              "${user.bio}"
+            </div>
+
+            <!-- Business / Hustle Spotlight -->
+            <div class="p-2.5 bg-gradient-to-r from-orange-950/80 to-purple-950/80 rounded-xl border border-orange-500/30 flex items-center gap-2 text-xs text-orange-200">
+              <span class="material-symbols-outlined text-base text-orange-400">storefront</span>
+              <span><strong>Work/Hustle:</strong> ${user.hustle}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleSwipe(dir) {
+      if (swipeIndex < mockUsers.length) {
+        if (dir === 'right') {
+          showToast(`Expressed interest in ${mockUsers[swipeIndex].name}!`);
+        }
+        swipeIndex++;
+        renderSwipeCard();
+      }
+    }
+
+    function vouchCurrentProfile() {
+      if (swipeIndex < mockUsers.length) {
+        showToast(`You vouched for ${mockUsers[swipeIndex].name}'s genuineness!`);
+      }
+    }
+
+    // --- ICEBREAKER GENERATOR ---
+    function spinIcebreaker() {
+      const prompt = icebreakers[Math.floor(Math.random() * icebreakers.length)];
+      document.getElementById('icebreakerText').innerText = `"${prompt}"`;
+    }
+
+    function answerPromptInLounge() {
+      switchTab('lounge');
+      document.getElementById('loungeInput').value = document.getElementById('icebreakerText').innerText + " My answer: ";
+      document.getElementById('loungeInput').focus();
+    }
+
+    // --- LONERS IN BUSINESS HUB ---
+    function renderBusinessListings() {
+      const container = document.getElementById('businessList');
+      container.innerHTML = businessListings.map(item => `
+        <div class="bg-slate-800/90 p-4 rounded-3xl border border-orange-500/30 shadow-md space-y-2 hover:border-orange-500/50 transition">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] bg-orange-500/20 text-orange-300 px-2 py-0.5 rounded-md font-bold uppercase border border-orange-500/30">
+                ${item.category}
+              </span>
+              <h3 class="font-display font-bold text-white text-sm mt-1">${item.title}</h3>
+            </div>
+            <span class="text-[11px] text-slate-400 flex items-center gap-0.5">
+              <span class="material-symbols-outlined text-xs text-orange-400">location_on</span> ${item.location}
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed">${item.desc}</p>
+
+          <div class="flex items-center justify-between pt-2 border-t border-slate-700/60 text-xs">
+            <span class="text-slate-400">Offered by <strong>${item.owner}</strong></span>
+            <button onclick="openChatWith('${item.contactUser}')" class="btn-warm-gradient text-white px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1 shadow-sm">
+              <span class="material-symbols-outlined text-sm">chat</span> Discuss Business
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterBusinessCategory(cat) {
+      if (cat === 'all') {
+        renderBusinessListings();
+        return;
+      }
+      const filtered = businessListings.filter(b => b.category === cat);
+      const container = document.getElementById('businessList');
+      if (filtered.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">No listings under this category yet. Post yours!</p>`;
+        return;
+      }
+      container.innerHTML = filtered.map(item => `
+        <div class="bg-slate-800/90 p-4 rounded-3xl border border-orange-500/30 shadow-md space-y-2">
+          <h3 class="font-display font-bold text-white text-sm">${item.title}</h3>
+          <p class="text-xs text-slate-300">${item.desc}</p>
+          <div class="flex items-center justify-between pt-2 border-t border-slate-700/60 text-xs">
+            <span class="text-slate-400">Owner: ${item.owner}</span>
+            <button onclick="openChatWith('${item.contactUser}')" class="btn-warm-gradient text-white px-3 py-1 rounded-xl text-xs font-bold">Chat</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openAddBusinessModal() {
+      document.getElementById('addBusinessModal').classList.remove('hidden');
+    }
+
+    function closeAddBusinessModal() {
+      document.getElementById('addBusinessModal').classList.add('hidden');
+    }
+
+    function submitBusinessPost() {
+      const title = document.getElementById('bizTitleInput').value.trim();
+      const cat = document.getElementById('bizCategoryInput').value;
+      const desc = document.getElementById('bizDescInput').value.trim();
+
+      if (!title || !desc) {
+        showToast("Please fill in business title and description!");
+        return;
+      }
+
+      businessListings.unshift({
+        id: "b" + Date.now(),
+        owner: currentUser ? currentUser.name : "You",
+        title: title,
+        category: cat,
+        location: currentLocation,
+        desc: desc,
+        contactUser: "u1"
+      });
+
+      closeAddBusinessModal();
+      renderBusinessListings();
+      showToast("Business successfully published to local members!");
+    }
+
+    // --- VILLAGE LOUNGE FEED WITH IMAGE SHARING ---
+    function handleLoungeImageSelect(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          currentLoungeImageData = e.target.result;
+          document.getElementById('loungeImagePreview').src = currentLoungeImageData;
+          document.getElementById('loungeImagePreviewContainer').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function removeLoungeImage() {
+      currentLoungeImageData = null;
+      document.getElementById('loungeImagePreview').src = "";
+      document.getElementById('loungeImagePreviewContainer').classList.add('hidden');
+      document.getElementById('loungeFileInput').value = "";
+    }
+
+    function postToLoungeFeed() {
+      const text = document.getElementById('loungeInput').value.trim();
+      if (!text && !currentLoungeImageData) {
+        showToast("Please write a message or attach an image!");
+        return;
+      }
+
+      loungePosts.unshift({
+        id: "p" + Date.now(),
+        author: currentUser ? currentUser.name : "You",
+        location: currentLocation.split(',')[0],
+        content: text,
+        image: currentLoungeImageData,
+        time: "Just now",
+        likes: 1
+      });
+
+      document.getElementById('loungeInput').value = "";
+      removeLoungeImage();
+      renderLoungeFeed();
+      showToast("Posted to Village Lounge Feed!");
+    }
+
+    function renderLoungeFeed() {
+      const feed = document.getElementById('loungeFeed');
+      feed.innerHTML = loungePosts.map(post => `
+        <div class="bg-slate-800/90 p-4 rounded-3xl border border-pink-500/20 shadow-md space-y-3">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-bold text-white">${post.author} <span class="text-orange-400 font-normal">(${post.location})</span></span>
+            <span class="text-[10px] text-slate-400">${post.time}</span>
+          </div>
+
+          ${post.content ? `<p class="text-xs text-slate-200 leading-relaxed">${post.content}</p>` : ''}
+
+          ${post.image ? `
+            <div class="rounded-2xl overflow-hidden border border-slate-700 max-h-60">
+              <img src="${post.image}" class="w-full object-cover max-h-60">
+            </div>
+          ` : ''}
+
+          <div class="flex items-center justify-between pt-2 text-xs text-slate-400 border-t border-slate-700/60">
+            <button onclick="likeLoungePost('${post.id}')" class="flex items-center gap-1 hover:text-pink-400 transition">
+              <span class="material-symbols-outlined text-sm text-pink-500">favorite</span> ${post.likes} Vibes
+            </button>
+            <button onclick="switchTab('messages')" class="text-[11px] text-orange-400 font-medium hover:underline">
+              Reply Direct Message
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function likeLoungePost(id) {
+      const post = loungePosts.find(p => p.id === id);
+      if (post) {
+        post.likes++;
+        renderLoungeFeed();
+      }
+    }
+
+    // --- DIRECT MESSAGES WITH IMAGE SHARING ---
+    function renderChatsList() {
+      const list = document.getElementById('chatsList');
+      list.innerHTML = mockUsers.map(user => `
+        <div onclick="openChatWith('${user.id}')" class="p-3 bg-slate-800/90 rounded-2xl border border-slate-700 hover:border-pink-500/40 flex items-center justify-between cursor-pointer transition">
+          <div class="flex items-center gap-3">
+            <img src="${user.photo}" class="w-11 h-11 rounded-2xl object-cover border border-pink-500/30">
+            <div>
+              <h4 class="font-display font-bold text-xs text-white">${user.name}</h4>
+              <p class="text-[11px] text-slate-400 truncate max-w-[180px]">Tap to open free local chat</p>
+            </div>
+          </div>
+          <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-950/80 px-2 py-0.5 rounded-md border border-emerald-500/30">Free Chat</span>
+        </div>
+      `).join('');
+    }
+
+    function openChatWith(userId) {
+      activeChatUser = mockUsers.find(u => u.id === userId);
+      if (!activeChatUser) return;
+
+      document.getElementById('chatHeaderName').innerText = activeChatUser.name;
+      document.getElementById('chatHeaderMeta').innerText = `${activeChatUser.location} • Genuine ${activeChatUser.trustScore}%`;
+      document.getElementById('chatHeaderAvatar').innerHTML = `<img src="${activeChatUser.photo}" class="w-full h-full object-cover rounded-2xl">`;
+      document.getElementById('chatModal').classList.remove('hidden');
+
+      if (!chatsData[userId]) {
+        chatsData[userId] = [
+          { sender: "them", text: `Hi! Greetings from ${activeChatUser.location}. What side-hustle or hobbies are you into?` }
+        ];
+      }
+      renderChatMessages();
+    }
+
+    function closeChatModal() {
+      document.getElementById('chatModal').classList.add('hidden');
+    }
+
+    function handleChatImageSelect(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          currentChatImageData = e.target.result;
+          document.getElementById('chatAttachedImg').src = currentChatImageData;
+          document.getElementById('chatImageAttachmentPreview').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function removeChatImageAttachment() {
+      currentChatImageData = null;
+      document.getElementById('chatAttachedImg').src = "";
+      document.getElementById('chatImageAttachmentPreview').classList.add('hidden');
+      document.getElementById('chatFileInput').value = "";
+    }
+
+    function renderChatMessages() {
+      if (!activeChatUser) return;
+      const body = document.getElementById('chatMessagesBody');
+      const messages = chatsData[activeChatUser.id] || [];
+
+      body.innerHTML = messages.map(msg => `
+        <div class="flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}">
+          <div class="${msg.sender === 'me' ? 'bg-warm-gradient text-white rounded-t-2xl rounded-l-2xl' : 'bg-slate-800 text-slate-100 border border-slate-700 rounded-t-2xl rounded-r-2xl'} p-3 text-xs max-w-[80%] shadow-md space-y-1.5">
+            ${msg.text ? `<div>${msg.text}</div>` : ''}
+            ${msg.image ? `
+              <div class="rounded-xl overflow-hidden border border-white/20">
+                <img src="${msg.image}" class="max-w-xs w-full object-cover max-h-48">
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatInputText');
+      const text = input.value.trim();
+
+      if (!text && !currentChatImageData) return;
+      if (!activeChatUser) return;
+
+      // Anti-conman keyword check
+      const lower = text.toLowerCase();
+      if (lower.includes("money") || lower.includes("m-pesa") || lower.includes("airtime") || lower.includes("cash")) {
+        showToast("⚠️ Safety Notice: Soliciting money is strictly blocked on Loners App.");
+      }
+
+      chatsData[activeChatUser.id].push({
+        sender: 'me',
+        text: text,
+        image: currentChatImageData
+      });
+
+      input.value = "";
+      removeChatImageAttachment();
+      renderChatMessages();
+
+      // Simulated auto-reply
+      setTimeout(() => {
+        chatsData[activeChatUser.id].push({
+          sender: 'them',
+          text: "That looks/sounds great! Love how safe and genuine conversations are on Loners App."
+        });
+        renderChatMessages();
+      }, 1400);
+    }
+
+    function handleChatKeyPress(e) {
+      if (e.key === 'Enter') sendMessage();
+    }
+
+    // --- LOCATION & RADIUS SLIDER ---
+    function openLocationModal() {
+      document.getElementById('locationModal').classList.remove('hidden');
+    }
+
+    function closeLocationModal() {
+      document.getElementById('locationModal').classList.add('hidden');
+    }
+
+    function updateRadiusLabel(val) {
+      currentRadius = val;
+      document.getElementById('radiusValDisplay').innerText = `${val} km`;
+    }
+
+    function autoDetectLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            currentLocation = "GPS Village Verified";
+            updateLocationDisplays();
+            closeLocationModal();
+            showToast("Neighborhood detected automatically!");
+          },
+          (err) => {
+            showToast("GPS unavailable. Please type your location.");
+          }
+        );
+      }
+    }
+
+    function saveManualLocation() {
+      const input = document.getElementById('manualLocationInput').value.trim();
+      if (input) {
+        currentLocation = input;
+        updateLocationDisplays();
+        closeLocationModal();
+        showToast(`Location set to ${input} (${currentRadius}km radius)!`);
+      }
+    }
+
+    function updateLocationDisplays() {
+      document.getElementById('headerLocDisplay').innerText = `${currentLocation.split(',')[0]} (${currentRadius}km)`;
+      document.getElementById('profileLocDisplay').innerHTML = `<span class="material-symbols-outlined text-sm">location_on</span> ${currentLocation} (${currentRadius}km)`;
+    }
+
+    // --- SCAM REPORTING & OATH MODALS ---
+    function openScamReportModal() {
+      document.getElementById('scamReportModal').classList.remove('hidden');
+    }
+
+    function closeScamReportModal() {
+      document.getElementById('scamReportModal').classList.add('hidden');
+    }
+
+    function submitScamReport() {
+      closeScamReportModal();
+      showToast("Report submitted! Account suspended pending moderator review.");
+    }
+
+    function openScamOathModal() {
+      alert("Loners App Zero-Scam Oath:\n\n1. 100% Free Forever (No coins or paywalls).\n2. Absolute zero tolerance for payment/airtime requests.\n3. Community members vouch for genuineness.");
+    }
+
+    function saveUserProfile() {
+      showToast("Profile bio & hustle details saved successfully!");
+    }
+
+    // --- TOAST NOTIFICATIONS ---
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs border border-pink-500/40 px-4 py-2.5 rounded-full shadow-2xl z-50 transition transform duration-300';
+      toast.innerText = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+  </script>
+
+</body>
+</html>
